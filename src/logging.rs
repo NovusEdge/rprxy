@@ -24,55 +24,28 @@ fn handle_logfile(fpath: &str) -> File {
     }
 }
 
-pub fn print_info(s: &str) {
-    println!("{}", format!("[I]: {}", s).italic().dimmed().white());
-}
-
-pub fn log_info(s: &str, fpath: &str) {
+#[allow(unused_must_use)]
+pub fn log_message(s: &str, fpath: &str) {
     let mut logfile = handle_logfile(fpath);
     let dt: DateTime<Local> = Local::now();
     let timestamp = format!("{}:{}:{}", dt.hour(), dt.minute(), dt.second());
-    let msg = format!("{} [I]: {}", timestamp, s);
+    let msg = format!("{} {}", timestamp, s);
     
     logfile.write(msg.as_bytes());
+}
+
+pub fn print_info(s: &str) {
+    println!("{}", format!("[I]: {}", s).italic().dimmed().white());
 }
 
 pub fn print_error(s: &str) {
     println!("{}", format!("[-]: {}", s).red());
 }
 
-pub fn log_error(s: &str, fpath: &str) {
-    let mut logfile = handle_logfile(fpath);
-    let dt: DateTime<Local> = Local::now();
-    let timestamp = format!("{}:{}:{}", dt.hour(), dt.minute(), dt.second());
-    let msg = format!("{} [-]: {}", timestamp, s);
-    
-    logfile.write(msg.as_bytes());
-}
-
 pub fn print_success(s: &str) {
     println!("{}", format!("[+]: {}", s).green());
-}
-
-pub fn log_success(s: &str, fpath: &str) {
-    let mut logfile = handle_logfile(fpath);
-    let dt: DateTime<Local> = Local::now();
-    let timestamp = format!("{}:{}:{}", dt.hour(), dt.minute(), dt.second());
-    let msg = format!("{} [+]: {}", timestamp, s);
-    
-    logfile.write(msg.as_bytes());
 }
 
 pub fn print_warning(s: &str) {
     println!("{}", format!("[W]: {}", s).yellow());
 }
-
-pub fn log_warning(s: &str, fpath: &str) {
-    let mut logfile = handle_logfile(fpath);
-    let dt: DateTime<Local> = Local::now();
-    let timestamp = format!("{}:{}:{}", dt.hour(), dt.minute(), dt.second());
-    let msg = format!("{} [W]: {}", timestamp, s);
-    
-    logfile.write(msg.as_bytes());
-}
-
